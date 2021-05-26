@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>让坦克开起来</title>
+	<style type="text/css">
+		input {
+			font-size: 26px;
+			margin-top: 20px;
+		}
+
+		body {
+			background-image: url(images/grassland.png);
+			height: 100vh;
+		}
+
+		#mytank {
+			position: absolute;
+			left: 10px;
+			top: 100px
+		}
+	</style>
+</head>
+
+<body>
+	<img id="mytank" src="images/right.png" />
+	<script>
+		// 189000404 肖泽徽
+		document.oncontextmenu = function () { return false };
+		const tank = document.querySelector('img');
+		let tankTop = tank.offsetTop;
+		let tankLeft = tank.offsetLeft;
+
+		document.addEventListener('keydown', function (e) {
+			tankTop = tank.offsetTop;
+			tankLeft = tank.offsetLeft;
+
+			switch (e.key) {
+				case 'w': goUp(); break;
+				case 's': goDown(); break;
+				case 'a': goLeft(); break;
+				case 'd': goRight(); break;
+			}
+		})
+
+		function goUp() {
+			tank.src = './images/up.png'
+			if (tankTop <= 100) {
+				return
+			}
+			tank.style.top = `${tankTop - 3}px`;
+		}
+		function goDown() {
+			tank.src = './images/down.png'
+			if (tankTop >= document.body.clientHeight - 100) {
+				return
+			}
+			tank.style.top = `${tankTop + 3}px`;
+		}
+		function goLeft() {
+			tank.src = './images/left.png'
+			if (tankLeft <= 10) {
+				return
+			}
+			tank.style.left = `${tankLeft - 3}px`;
+		}
+		function goRight() {
+			tank.src = './images/right.png'
+			if (tankLeft >= document.body.clientWidth - 100) {
+				return
+			}
+			tank.style.left = `${tankLeft + 3}px`;
+		}
+	</script>
+</body>
+
+</html>

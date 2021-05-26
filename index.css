@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.swiper {
+    width: 900px;
+    position: absolute;
+    top: 5px;
+    left: calc(50% - 450px);
+    z-index: 2;
+    text-align: center;
+}
+.swiper img {
+    height: 200px;
+    padding-left: 100px;    
+}
+.content {
+    width: 100vw;
+    min-height: 100vh;
+    position: relative;
+    background-color: #008c8c;
+
+    perspective: 1000px;
+}
+.content .warp {
+    width: 890px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    transform-style: preserve-3d;
+}
+.content .warp .box {
+    display: flex;
+    width: 150px;
+    height: 150px;
+    position: relative;
+
+    transform-style: preserve-3d;
+    transition: .5s;
+    transform: rotateX(1deg) rotateY(0deg) rotateZ(0deg) ;
+}
+.content .warp .box div {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 150px;
+    text-shadow: 0 5px 10px #000;
+}
+.box div:nth-child(1) { /* 前面 */
+    transform: translateZ(75px) ;
+}
+.box div:nth-child(2) { /* 后面 */
+    transform: translateZ(-75px) ;
+}
+.box div:nth-child(3) { /* 上面 */
+    transform: rotateX(90deg) translateZ(75px) ;
+}
+.box div:nth-child(4) { /* 下面 */
+    transform: rotateX(90deg) translateZ(-75px) ;
+}
+.box div:nth-child(5) { /* 右面 */
+    transform: rotateY(90deg) translateZ(75px) ;
+}
+.box div:nth-child(6) { /* 左面 */
+    transform: rotateY(90deg) translateZ(-75px) ;
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 70%;
+            height: 3000px;
+            margin: 0 auto;
+            background-color: antiquewhite;
+        }
+        .adv {
+            position: fixed;
+        }
+        .adv1 {
+            width: 100%;
+            height: 300px;
+            top: 0;
+            left: 0;
+            padding: 10px 50px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+        }
+        .adv1>div {
+            position: relative;
+            width: 100px;
+        }
+        .adv>div .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 100;
+            cursor: pointer;
+        }
+        .adv1>div a {
+            position: absolute;
+            top: 15px;
+            left: 0;
+        }
+        .adv2 {
+            bottom: 0;
+            right: 0;
+        }
+        .adv2>div {
+            position: relative;
+            transition: 1s;
+            top: 300px;
+            overflow: hidden;
+        }
+        .adv2>div a {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+    <div class="adv adv1">
+        <div>
+            <img class="close" id="a" src="./img/close.png" alt="">
+            <a href="#">
+                <img src="./img/ad1.jpg" alt="">
+            </a>
+        </div>
+        <div>
+            <img class="close" src="./img/close.png" alt="">
+            <a href="#">
+                <img src="./img/ad1.jpg" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="adv adv2">
+        <div>
+            <img class="close" src="./img/close.png" alt="">
+            <a href="#">
+                <img src="./img/ad2.jpg" alt="">
+            </a>
+        </div>
+    </div>
+
+
+    <script>
+        // 189000404肖泽徽
+        const adv1 = document.querySelector('.adv1');
+        const adv2 = document.querySelector('.adv2');
+        const div = adv2.querySelector('div');
+        adv1.addEventListener('click', function (e) {
+            if (e.target.className != 'close') {
+                return
+            }
+            this.style.display = 'none'
+        })
+        adv2.addEventListener('click', function (e) {
+            if (e.target.className != 'close') {
+                return
+            }
+            this.style.display = 'none'
+        })
+
+
+        let timer = null;
+        window.addEventListener('scroll', () => {
+            if (timer) {
+                div.style.top = '300px';
+                clearTimeout(timer);
+                tiemr = null;
+            }
+            timer = setTimeout(() => {
+                div.style.top = 0;
+            }, 50);
+        })
+        setTimeout(() => {
+            div.style.top = '0'
+        }, 1)
+
+
+    </script>
+</body>
+
+</html>

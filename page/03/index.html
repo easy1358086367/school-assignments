@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/menu1.css" />
+		<title>练习02 实现菜单的收缩与扩展</title>
+	</head>
+
+	<body>
+		<div id="leftNav" class="left-nav">
+			<div id="myMenu" class="menuBox">
+				<ul class="spMenuBox">
+					<li class="spMenuItem active">
+						<div class="spMenu">
+							<i class="fa fa-folder-open"></i>
+							<span>菜单1</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: block;">
+							<li><span class="subMenu">菜单1.1</span></li>
+							<li><span class="subMenu">菜单1.2</span></li>
+							<li><span class="subMenu">菜单1.3</span></li>
+						</ul>
+					</li>
+					<li class="spMenuItem">
+						<div class="spMenu">
+							<i class="fa fa-folder"></i>
+							<span>菜单2</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: none;">
+							<li><span class="subMenu">菜单2.1</span></li>
+							<li><span class="subMenu">菜单2.2</span></li>
+							<li><span class="subMenu">菜单2.3</span></li>
+							<li><span class="subMenu">菜单2.1</span></li>
+							<li><span class="subMenu">菜单2.2</span></li>
+							<li><span class="subMenu">菜单2.3</span></li>
+						</ul>
+					</li>
+					<li class="spMenuItem">
+						<div class="spMenu">
+							<i class="fa fa-folder"></i>
+							<span>菜单3</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: none;">
+							<li><span class="subMenu">菜单3.1</span></li>
+							<li><span class="subMenu">菜单3.2</span></li>
+							<li><span class="subMenu">菜单3.3</span></li>
+							<li><span class="subMenu">菜单3.1</span></li>
+							<li><span class="subMenu">菜单3.2</span></li>
+							<li><span class="subMenu">菜单3.3</span></li>
+							<li><span class="subMenu">菜单3.1</span></li>
+							<li><span class="subMenu">菜单3.2</span></li>
+							<li><span class="subMenu">菜单3.3</span></li>
+						</ul>
+					</li>
+					<li class="spMenuItem">
+						<div class="spMenu">
+							<i class="fa fa-folder"></i>
+							<span>菜单4</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: none;">
+							<li><span class="subMenu">菜单4.1</span></li>
+							<li><span class="subMenu">菜单4.2</span></li>
+							<li><span class="subMenu">菜单4.3</span></li>
+						</ul>
+					</li>
+					<li class="spMenuItem">
+						<div class="spMenu">
+							<i class="fa fa-folder"></i>
+							<span>菜单5</span>
+							<i class="fa fa-2x fa-angle-down"></i>
+						</div>
+						<ul class="subMenuBox" style="display: none;">
+							<li><span class="subMenu">菜单5.1</span></li>
+							<li><span class="subMenu">菜单5.2</span></li>
+							<li><span class="subMenu">菜单5.3</span></li>
+							<li><span class="subMenu">菜单5.1</span></li>
+							<li><span class="subMenu">菜单5.2</span></li>
+							<li><span class="subMenu">菜单5.3</span></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		
+		</div>
+	</body>
+	<script>
+		// 189000404 肖泽徽
+		const spMenus = document.querySelectorAll('.spMenu');
+
+		for (const spMenu of spMenus) {
+			spMenu.addEventListener('click',function () {
+				// console.log(this);
+				const parent = this.parentNode;
+				const icon = parent.querySelector('i');
+				const ul = parent.querySelector('ul');
+				
+				if(parent.className == 'spMenuItem') {//展开子菜单
+					parent.className = 'spMenuItem active';//箭头切换
+					icon.className = 'fa fa-folder-open';//文件夹样式切换
+					ul.style.display = 'block';//显示子菜单
+				}else {
+					parent.className = 'spMenuItem';
+					icon.className = 'fa fa-folder';					
+					ul.style.display = 'none';
+				}
+			})
+		}
+	</script>
+
+</html>

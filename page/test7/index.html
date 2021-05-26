@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            position: relative;
+        }
+
+        img {
+            width: 150px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 189000404 肖泽徽 -->
+    <div class="container">
+        <img src="./img/player_right.gif" alt="">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        const img = $('img')[0];
+        $('.container').click((e) => {
+            $('img').stop(true, false);//终止未完成的动画
+            let src = img.src.split('_')[0];
+            const len = Math.ceil(Math.sqrt(Math.pow(e.offsetX - img.offsetLeft, 2) + Math.pow(e.offsetY - img.offsetTop, 2)));//两点之间的距离
+            if (e.offsetX >= img.offsetLeft) {//鼠标点击在人物右边
+                img.setAttribute('src', `${src}_right.gif`);
+            } else {//鼠标在人物的左边
+                img.setAttribute('src', `${src}_left.gif`)
+            }
+            $('img').animate({
+                left: e.offsetX - 80,
+                top: e.offsetY - 60
+            }, len * 5)
+        })
+
+        $('.container').dblclick((e) => {
+            let src = img.src.split('_')[1];
+            img.setAttribute('src', `./img/playerbig_${src}`);
+        })
+    </script>
+</body>
+
+</html>

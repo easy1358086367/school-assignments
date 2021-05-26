@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+
+
+
+    <script>
+
+        let value = parseInt( prompt('请输入显示行数') )
+        if( value > 0 ) {
+            shape3(value)
+            shape4(value)
+            diamond(value)
+        }else {
+            alert('输入格式有误，请刷新重试')
+        }
+
+        // 三角形
+        function shape3 ( level ) {
+            let store = '*';
+            let str = '';
+            for (let i = 1; i <= level; i++) {
+                str += `
+                    ${'&nbsp;'.repeat(level - i) + store}
+                    <br />
+                `
+                store += '**'
+            }
+            let div = document.querySelectorAll('div')[0];
+            div.innerHTML = str;
+        }
+        // 平行四边形
+        function shape4 ( level ) {
+            let store = '***********************';
+            let str = '';
+            for (let i = 1; i <= level; i++) {
+                str += `
+                    ${'&nbsp;'.repeat(level - i) + store}
+                    <br /> 
+                `
+            }
+            let div = document.querySelectorAll('div')[1];
+            div.innerHTML = str;
+        }
+        // 菱形
+        function diamond ( level ) {
+            let row = Math.ceil( level / 2 );
+            let store = '*';
+            let str = '';
+            for (let i = 1; i <= row; i++) {
+                str += `
+                    ${'&nbsp;'.repeat(row - i) + store}
+                    <br />
+                `
+                store += '**'
+            }
+            store = store.substr( 0, store.length - 2 );
+            for (let i = level - row; i > 0; i--) {
+                store = store.substr( 0, store.length - 2 );
+                str += `
+                    ${'&nbsp;'.repeat(row - i) + store}
+                    <br /> 
+                `;
+            }
+            let div = document.querySelectorAll('div')[2];
+            div.innerHTML = str;
+
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 1
+        {
+            // 1.1
+            console.log(Number(true), Number(null), +undefined);//1,0,NaN
+            // 1.2
+            console.log(Boolean('100'), Boolean(100), Boolean(null), !!undefined);//true,true,false,false
+            // 1.3
+            console.log(parseInt(123.6), parseInt(0b1011011), parseInt(0X2A), parseInt(0X2A, 8));//123,91,42(8->10),34(16->10--8->10)
+            // 1.4
+            console.log(parseFloat('123.6'), parseFloat('100px'), parseFloat(010));//123.6   100   8
+            // 1.5
+            console.log(eval('87*99+2'))
+            // 1.6
+            console.log(isNaN(null), isNaN('123'), isNaN('abc'), isNaN('a1b2c3'));//fals  false  true  true
+
+        }
+        // 2
+        {
+            // 2.1
+            var arr1 = [];
+            console.log(arr1, arr1.length);//[]  0
+            var arr2 = [1, 2, 3];
+            console.log(arr2[0], arr2.length);//1  3
+            var arr3 = new Array();
+            console.log(arr3[1], arr3.length);  //undefined 0
+            // 2.2
+            arr2.shift();
+            console.log(arr2);
+        }
+        // 3
+        {
+            let date = new Date();
+            console.log(`${date.getMinutes()} : ${date.getSeconds()}`);
+        }
+        // 4
+        {
+            // 4.1
+            var reg1 = /^\d{4}$/;
+            console.log(
+                reg1.test('1234'),
+                reg1.test('1a34'),
+                reg1.test('12345')
+            );// true  false false
+            // 4.2
+            var reg2 = new RegExp("^[sp]\\d{1,4}$","i");
+            console.log(
+                reg2.test('p123'),
+                reg2.test('1234'),
+                reg2.test('510')
+            );//true false false
+            // 4.3
+            {
+                let reg = /^1(33|53|89|80)[0-9]/;
+                console.log(
+                    reg.test('12318903294'),
+                    reg.test('13349053423'),
+                    reg.test('1569792342')
+                );//false  true  false
+            }
+        }
+        //5
+        {
+            let email = '1358086367@qq.com';
+            console.log(email.split('@')[0]);//1358086367
+        }
+        // 6
+        {
+            console.log(parseInt(Math.random() * 3 + 1));
+        }
+        // 7
+        {
+            var x = 1;
+            function A ( y ) {
+                var x = 2;
+                function B ( z ) {
+                    console.log( x + y + z );
+                }
+                return B;
+            }
+            var C = A(2);
+            C(3)//7
+        }
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 189000404 肖泽徽 -->
+    <script>
+        // 1
+        const obj1 = {
+            name: '刘备',
+            sex: '男',
+            run () {
+                console.log('跑');
+            }
+        }
+
+        // 2 
+        const obj2 = new Object({
+            name: '刘备',
+            sex: '男',
+            run() {
+                console.log('跑');
+            }
+        })
+        // 3
+        function factory() {
+            const obj = new Object();
+            obj.name = '刘备'
+            obj.sex = '男'
+            obj.run = function () {
+                console.log('跑');
+            }
+            return obj
+        }
+        const obj3 = factory();
+        // 4
+        function Student(name, sex) {
+            this.name = name;
+            this.sex = sex;
+            this.run = function () {
+                console.log(this.name + '跑');
+            }
+
+        }
+        let obj5 = new Student('刘备', '男');
+        // 5
+        function Person() { }
+        Person.prototype.name = '刘备';
+        Person.prototype.sex = '男';
+        Person.prototype.run = function () {
+            console.log(this.name + '跑');
+        }
+        let obj6 = new Person();
+        console.log(obj6);
+        obj6.run();
+        // 6
+        function fun() {
+            console.log(this);
+        }
+        fun()
+        // 7
+        function Animal(name) {
+            this.name = name
+        }
+        function Dog(name, salary) {
+            Animal.call(this, name);
+            this.salary = salary;
+        }
+        let dog = new Dog('赵云', 10);
+        // 8
+        (function () {
+            function Person(name) {
+                this.name = name
+            }
+            Person.prototype.run = function () {
+                console.log('跑');
+            }
+            function Worker(name, salary) {
+                Person.call(this, name)
+                this.salary = salary
+            }
+            Worker.prototype = new Person();
+            let obj4 = new Worker('赵云', 100)
+
+            console.log(obj4);
+        })();
+            // 9
+        (function () {
+            let person1 = {
+                name: '刘备',
+                sex: '男',
+                run () {
+                    console.log('跑');
+                }
+            }
+            let person2 = Object.create(person1)
+            console.log(person2);
+        })();
+        // 10
+        (function () {
+            function inheritPrototype (sFun,pFun) {
+                let myPrototype = new Object(pFun.prototype)
+                myPrototype.constructor = sFun;
+                sFun.prototype = myPrototype;
+            }
+            function Person (name) {
+                this.name = name;
+            }
+            Person.prototype.run = function () {
+                console.log('跑');
+            }
+            function Worker (name,salary){
+                Person.call(this,name);
+                this.salary = salary;
+            }
+            inheritPrototype(Worker,Person)
+            let worker1 = new Worker('赵云',100);
+            console.log(worker1);
+        })();
+
+
+    </script>
+</body>
+
+</html>
