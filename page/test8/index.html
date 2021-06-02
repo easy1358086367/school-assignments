@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/intlTelInput.css">
+    <link rel="stylesheet" href="css/demo.css">
+    <style>
+        .container {
+            width: 350px;
+            margin: 50px auto;
+        }
+
+        form>div {
+            height: 50px;
+            line-height: 30px;
+        }
+
+        form label {
+            width: 100px;
+        }
+
+        form input {
+            width: 200px;
+        }
+
+        button {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 189000404 肖泽徽 -->
+    <div class="container">
+        <form>
+            <div class="item">
+                <label for="user">用户名</label>
+                <input type="text" name="user" id="user">
+            </div>
+            <div class="item">
+                <label for="pw1">设置密码</label>
+                <input type="password" name="pw1" id="pw1">
+            </div>
+            <div class="item">
+                <label for="pw2">确认密码</label>
+                <input type="password" name="pw2" id="pw2">
+            </div>
+            <div class="item">
+                <input style="width: 100%;" id="phone" name="phone" type="tel">
+            </div>
+            <div class="item">
+                <label for="check">验证码</label>
+                <input type="text" class="input-code" name="check" id="">
+                <span class="code"></span>
+            </div>
+            <button>立即注册</button>
+        </form>
+    </div>
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- 手机号插件   jq22.com/jquery-info12917  -->
+    <script src="./js/intlTelInput.js"></script>
+    <script>
+        $("#phone").intlTelInput({
+            // allowDropdown: false, //是否允许下拉
+            // autoHideDialCode: false,  // 如果输入中只有一个拨码:在模糊时删除它，然后重新添加对焦
+            // autoPlaceholder: "off",  //添加在所选国家例数输入占位符
+            // dropdownContainer: "body", // 附加菜单到特定元素
+            // excludeCountries: ["us"],  //不要显示这些国家
+            // formatOnDisplay: false,   //在初始化过程中格式化的输入的值
+            // geoIpLookup: function(callback) {  //更多的查找功能
+            //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            //     var countryCode = (resp && resp.country) ? resp.country : "";
+            //     callback(countryCode);
+            //   });
+            // },
+            // initialCountry: "auto", //初始国家
+            // nationalMode: false,  // 不要插入国际拨号码
+            // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],//只显示这些国家
+            // placeholderNumberType: "MOBILE", //数字类型用于占位符
+            // preferredCountries: ['cn', 'jp'],//显示只有这些国家
+            // separateDialCode: true, //在选定的标记旁边显示国家拨号码，因此它不是键入编号的一部分
+            utilsScript: "js/utils.js"  //指定要启用验证/格式的一个专门用于脚本的路径
+        });
+    </script>
+
+    <!-- 验证码插件  https://www.jq22.com/jquery-info19634 -->
+    <script src="https://www.jq22.com/demo/jqueryYzm201807281627/js/jquery.code.js"></script>
+    <script>
+        $(function () {
+            // 自定义验证码个数
+            $('.code').createCode({
+                len: 4
+            });
+        });
+        // 前面输入框失去焦点验证
+        $('.input-code').blur(function () {
+            if ($(this).val().toLowerCase() != $('.code').children('input').val().toLowerCase()) {
+                alert('验证码不正确')
+            } else {
+                alert('验证通过')
+            }
+        })
+    </script>
+
+
+    <script>
+        $('button').click((e)=>{
+            e.preventDefault()
+            let form = document.querySelector('form');
+            // console.log(form.user.value,form.pw1.value,form.pw2.value,form.phone.value,form.check.value);
+            if(form.user.value == '' || form.pw1.value == '' || form.pw2.value == '' || form.phone.value == '' || form.check.value == '') {
+                alert('请将信息填写完整')
+            }
+            else if(form.pw1.value != form.pw2.value) {
+                alert('密码不一致')
+            }else if (form.pw1.value.length < 8 || form.pw1.value.length > 20 ) {
+                alert('密码长度有误')
+            }else if (!/^1[3|4|5|7|8][0-9]{9}$/.test(form.phone.value)) {
+                alert('手机号格式错误')
+            }
+        })
+    </script>
+</body>
+
+</html>
