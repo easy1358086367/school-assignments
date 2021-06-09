@@ -42,6 +42,7 @@
             <div class="item">
                 <label for="user">用户名</label>
                 <input type="text" name="user" id="user">
+                <span class="tip"></span>
             </div>
             <div class="item">
                 <label for="pw1">设置密码</label>
@@ -65,6 +66,15 @@
 
 
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/Mock.js/1.0.1-beta3/mock-min.js"></script>
+    <!-- 数据模拟 -->
+    <script>
+        Mock.mock('/api/check', 'post', ()=>{
+            return {
+                bool: Math.random() * 10 > 4
+            };
+        })
+    </script>
 
     <!-- 手机号插件   jq22.com/jquery-info12917  -->
     <script src="./js/intlTelInput.js"></script>
@@ -128,6 +138,72 @@
                 alert('手机号格式错误')
             }
         })
+
+        const user = document.querySelector('#user');
+        const tip = document.querySelector('.tip');
+        user.addEventListener('blur', function () {
+            if(this.value) check();
+            else {tip.innerHTML = '账号不能为空';tip.style.color = 'red'}
+        });
+
+
+        // 检查用户名是否可用
+        async function check() {
+            let result = await ajax_pro({ path: '/api/check', type: 'post', data: { user: user.value } });
+            let bool = result.bool;
+            if (bool) {
+                tip.innerHTML = '该名称可用';
+                tip.style.color = 'green';
+            } else {
+                tip.innerHTML = '该名称不可用';
+                tip.style.color = 'red'
+            }
+            tip.style.display = 'inline'
+        }
+
+        // Promise版Ajax
+        function ajax_pro(options) {
+            return new Promise((resolve, reject) => {
+                //设置默认信息
+                let defaults = {
+                    type: 'get',
+                    path: '',
+                    data: {},
+                    header: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                Object.assign(defaults, options)
+                let xhr = new XMLHttpRequest()
+                let params = ''
+                for (key in defaults.data) {
+                    params = params + key + '=' + defaults.data[key] + '&'
+                }
+                //删除多出的一个'&'
+                params = params.substr(0, params.length - 1)
+                //区分post与get方式
+                if (defaults.type == 'post') {
+                    xhr.open('post', defaults.path)
+                    xhr.setRequestHeader('content-type', defaults.header["Content-Type"])
+                    if (defaults.header["Content-Type"] == 'application/json') {
+                        xhr.send(JSON.stringify(defaults.data))
+                    } else {
+                        xhr.send(params)
+                    }
+                } else {
+                    xhr.open('get', defaults.path + '?' + params)
+                    xhr.send()
+                }
+                xhr.onload = function () {
+                    if (xhr.status == 200) {
+                        resolve(JSON.parse(xhr.responseText))
+                    }
+                    else {
+                        reject(JSON.parse(xhr.responseText), xhr)
+                    }
+                }
+            })
+        }
     </script>
 </body>
 
