@@ -165,41 +165,41 @@
         function ajax_pro(options) {
             return new Promise((resolve, reject) => {
                 //设置默认信息
-                let defaults = {
+                const defaults = {
                     type: 'get',
                     path: '',
                     data: {},
                     header: {
                         'Content-Type': 'application/json'
-                    }
+                    },
+                    ...options
                 }
-                Object.assign(defaults, options)
-                let xhr = new XMLHttpRequest()
-                let params = ''
+                const xhr = new XMLHttpRequest();
+                let params = '';
                 for (key in defaults.data) {
                     params = params + key + '=' + defaults.data[key] + '&'
                 }
                 //删除多出的一个'&'
-                params = params.substr(0, params.length - 1)
+                params = params.substr(0, params.length - 1);
                 //区分post与get方式
                 if (defaults.type == 'post') {
-                    xhr.open('post', defaults.path)
-                    xhr.setRequestHeader('content-type', defaults.header["Content-Type"])
+                    xhr.open('post', defaults.path);
+                    xhr.setRequestHeader('content-type', defaults.header["Content-Type"]);
                     if (defaults.header["Content-Type"] == 'application/json') {
-                        xhr.send(JSON.stringify(defaults.data))
+                        xhr.send(JSON.stringify(defaults.data));
                     } else {
-                        xhr.send(params)
+                        xhr.send(params);
                     }
                 } else {
-                    xhr.open('get', defaults.path + '?' + params)
-                    xhr.send()
+                    xhr.open('get', defaults.path + '?' + params);
+                    xhr.send();
                 }
                 xhr.onload = function () {
                     if (xhr.status == 200) {
-                        resolve(JSON.parse(xhr.responseText))
+                        resolve(JSON.parse(xhr.responseText));
                     }
                     else {
-                        reject(JSON.parse(xhr.responseText), xhr)
+                        reject(JSON.parse(xhr.responseText), xhr);
                     }
                 }
             })
